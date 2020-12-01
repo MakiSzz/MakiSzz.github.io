@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EGAN Project Page</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta property="og:title" content="Embedding Generative Adversial Nets for Multi-domain Unpaired Image-to-Image Translation">
+
+  <link media="all" href="styles/pstyle.css" type="text/css" rel="StyleSheet">
+
+</head>
+
+<body>
+
+<div id="primarycontent">
+<center><h1>Embedding Generative Adversial Nets for Multi-domain Unpaired Image-to-Image Translation</h1></center>
+<center><h2><a href="">Zirui Jiao</a> &nbsp;&nbsp;&nbsp;
+<a href="test.html">Zijian Zhao</a> &nbsp;&nbsp;&nbsp; <a href="">Hui Chen</a>
+</h2></center>
+<center><h2><a href="">Institute of Software, Chinese Academy of Sciences</a></h2></center>
+<center><h2>2018-2019</h2></center>
+
+<center><img src="images/mbang.png" alt="model bang testcase" width="1000"></center>
+<p style="font-size:small">The first the column are input images, and the last column are target images. We set the attribute to the hairstyle of the face image, then our model can output a continous change process just as the middle columns.</p>
+
+
+<p></p>
+
+
+
+<h2>Abstract</h2>
+
+<div style="font-size:14px"><p align="justify">Image-to-image translation is a class of vision and graphics problems where the goal is to learn the mapping between an input image and an output image using a training set of aligned image pairs.
+However, for many tasks, paired training data will not be available. We present an approach for learning to translate an image from a source domain X to a target domain Y in the absence of paired examples.  Our goal is to learn a mapping G: X &#8594; Y, such that the distribution of images from G(X) is indistinguishable from the distribution Y using an adversarial loss. Because this mapping is highly under-constrained, we couple it with an inverse mapping F: Y &#8594; X and introduce a cycle consistency loss to push F(G(X)) &#8776; X (and vice versa). This project also aimes to develop a model architecture that can produce the continous changing process of multi-domain attributes. We tested our model on the CelebA and multiPIE and got a good result.</p></div>
+
+
+<br>
+
+<h2>Paper</h2>
+<p>Submitted to ICCV 2019. </p>
+
+<h2>Code: Unreleased </h2>
+
+<br>
+
+<h1 align="center">Model Design for EGAN</h1>
+<p align="justify">We developed an embedding generative adversarial networks (GAN) to transfer specific face attributes
+  from target face to source face, implemented in Tensorflow. To make the model can ouput the changing process, we built an embedding pretrained network to extract face attribute features
+  on the top of generative adversarial nets, that enables our model to use interpolation between extracted source feature and target feature to generate a continuous changing process.</p>
+
+<img style="float: left;" alt="model architecture" src="images/model.png" width=300>
+<p align="justify" body style="background-color:lightgray;"><b>How to Understand the Architecture</b>: EGAN, as well as any GAN-based method, is fundamentally hallucinating part of the content it creates. Its outputs are predictions of "what might it look like if ..." and the predictions, thought plausible, may largely differ from the ground truth.
+The model can be seperated into two parts. The first part is the embedding network, as indicated by the first half of the this figure, we used a contrasive learning network to learn the feature
+embedding of input and target images. Then the target feature code and the input are fed into the generator to get a translated image, the translated image and the input feature code are fed into the generator again to get a reconstructed image.
+The reconstruction loss makes the generator doesn't lose too much information in the input image, especially the people identity. The discriminator executes two tasks, one is to classify if this image is generated, another is to decide if this image
+has the right attribute, to be specific, the same selected attribute as the target image. For example, in our settings, we chose hairstyle, expreesion(smile or not smile) and haircolor as our training attributes, once the training process is
+ended, the model can take in two images and transfer these attributes from the target image to the input image. However, you can transfer three attributes at the same time, you can aslo transfer one attribute like haircolor if you like.</p>
+<br><br>
+
+<br><br><br>
+
+<h2 align='center'>Results in our Paper</h2>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><h2>Haircolor transfer by model only trained on one domain</h2>
+    <p font-size:14px> This model is only trained on the haircolor domain. The first column are input images, the last column are target images, the middle columns are the changing process. </p></td>
+  </tr>
+  <tr>
+      <td align="center" valign="middle"><img src="images/hairc.png" alt="hair color transfer" width=1000></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><h2>Haircolor transfer by model trained on multi-domains</h2>
+    <p> This model is trained on multi-domains at the same time, in the test time we only selected the haircolor domain to see whether jointly learning other domains will have effects on single domain. The first column are input images, the last column are target images, the middle columns are the changing process.</p></td>
+  </tr>
+  <tr>
+      <td align="center" valign="middle"><img src="images/mhairc.png" alt="hair color transfer - multidomain"  width=1000> </td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><h2>Smile Expreesion transfer by model only trained on one domain</h2>
+    <p> Same setting as previous.</p></td>
+  </tr>
+  <tr>
+      <td align="center" valign="middle"><img src="images/mouth.png" alt="expression transfer " width=1000> </td>
+  </tr>
+
+</table>
+<p>&nbsp;</p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><h2>Smile Expreesion transfer by model trained on multi-domains</h2>
+    <p> Same setting as previous.</p></td>
+  </tr>
+  <tr>
+      <td align="center" valign="middle"><img src="images/mulsmile.png" alt="expression transfer " width=1000> </td>
+  </tr>
+
+</table>
+<p>&nbsp;</p>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center" valign="middle"><h2>Multi-domain transfer</h2>
+    <p> Same setting as previous. We can see if we try to transfer three domains at the same time, the preformance will drop significantly.</p></td>
+  </tr>
+  <tr>
+      <td align="center" valign="middle"><img src="images/muld.png" alt="multi-domain transfer " width=1000> </td>
+  </tr>
+
+</table>
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+
+
+<br>
+
+<h2>Acknowledgment</h2>
+<p align="justify">I want to thank Zirui Jiao, Fengchun Qiao, Hui Chen for helping me to complete this project. Also, I want to thank Human-Computer Interaction Technology and Intelligent Information Processing Lab for providing the computing resoures for this project.</p>
+
+</body>
+</html>

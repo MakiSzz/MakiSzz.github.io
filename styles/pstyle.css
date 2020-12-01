@@ -1,0 +1,94 @@
+table {
+	vertical-align: top;
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+}
+body {
+	font-size: small;
+	color: black;
+	font-family: georgia, "new century schoolbook", times, serif;
+	background-color: white;
+	text-align: center
+}
+img {
+	border-top-style: none;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	padding-right: 0px;
+	padding-left: 0px;
+	float: right;
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+#primarycontent {
+  margin-left: auto; ; width: expression(document.body.clientwidth >
+1000? "1000px": "auto" ); margin-right: auto; text-align: left; max-width:
+1000px }
+
+h1 {
+	font-weight: normal
+}
+h2 {
+	margin-top: 12px;
+	font-weight: normal;
+	margin-bottom: 0px
+}
+h3 {
+	margin-top: 6px;
+	font-size: small;
+	margin-bottom: 0px
+}
+p {
+	margin-top: 0px;
+	font-size: 15px
+}
+a {
+	font-weight: bolder;
+	text-decoration: none
+}
+a:link {
+	color: #990000
+}
+a:visited {
+	color: #990000
+}
+li {
+	margin-top: 0px;
+	font-size: 15px;
+}
+ul {
+	margin-top: 1px;
+	margin-bottom: 15px;
+}
+
+
+#primarycontent {
+	line-height: 1.5; padding-top: 25px
+}
+
+
+div.abstract {
+	clear: both;
+	padding-right: 0px;
+	border-top: #999999 1px solid;
+	margin-top: 25px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	padding-top: 0px
+}
+div.abstract pre {
+	font-size: xx-small; margin: 0px
+}
+div.abstract h2 {
+
+}
+div.abstract img {
+	padding-right: 0px; padding-left: 12px; float: right; padding-bottom: 6px; padding-top: 6px
+}
+div.abstract li {
+	margin: 0px
+}
